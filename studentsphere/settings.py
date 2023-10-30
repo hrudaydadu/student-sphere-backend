@@ -53,7 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-     'corsheaders.middleware.CorsMiddleware', # add middle ware for the react
+    'corsheaders.middleware.CorsMiddleware', # add middle ware for the react
+    'whitenoise.middleware.WhiteNoiseMiddleware', # file for the serve static files
 ]
 
 ROOT_URLCONF = 'studentsphere.urls'
