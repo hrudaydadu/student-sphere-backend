@@ -16,6 +16,14 @@ class User(AbstractUser):
 
     name = models.CharField(max_length=100,null=True)
     auth_provider = models.CharField(max_length=255, blank=False, null=False, default=AUTH_PROVIDERS.get('email'))
+
+    profile_picture = models.FileField(upload_to="static",blank=True,null=True)
+    personal_website = models.URLField(blank=True,null=True)
+    facebook_profile = models.URLField(blank=True,null=True)
+    linkdin_profile = models.URLField(blank=True,null=True)
+    collage_id = models.CharField(max_length=100,blank=True,null=True)
+    facebook_profile = models.URLField(blank=True,null=True)
+    Grades = models.CharField(max_length=255,blank=True,null=True)
     USERNAME_FIELD = 'email'
     objects = CustomUserManager() 
     REQUIRED_FIELDS = []
