@@ -22,7 +22,6 @@ class User(AbstractUser):
     facebook_profile = models.URLField(blank=True,null=True)
     linkdin_profile = models.URLField(blank=True,null=True)
     collage_id = models.CharField(max_length=100,blank=True,null=True)
-    facebook_profile = models.URLField(blank=True,null=True)
     Grades = models.CharField(max_length=255,blank=True,null=True)
     USERNAME_FIELD = 'email'
     objects = CustomUserManager() 

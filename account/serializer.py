@@ -2,13 +2,14 @@ from .models import User
 from rest_framework import serializers
 from rest_framework.exceptions import AuthenticationFailed
 from django.contrib import auth
-
+from django.contrib.sites.shortcuts import get_current_site
 
 # register serializers
 class UserSerializers(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'name','phone_no','email','password']
+        fields = ['id', 'name','phone_no','email','password','profile_picture','personal_website','facebook_profile',
+                 'linkdin_profile','collage_id','Grades']
         extra_kwargs = {
             'password' :{'write_only':True}  #  to does not return password in api ## postman
         }
@@ -22,6 +23,18 @@ class UserSerializers(serializers.ModelSerializer):
             raise serializers.ValidationError("entre strong password")
         instance.save()
         return instance
+    
+    def imagePlanImage(self, obj):
+        return self.build_absolute_image_url(obj.profile_picture)
+    
+    def build_absolute_image_url(self, image_path):
+        request = self.context.get('request')
+        if request is not None:
+            return request.build_absolute_uri(image_path)
+        else:
+            # If request is not available (for example, in shell), use the default site
+            site = get_current_site(None)
+            return f"{site.scheme}://{site.domain}{image_path}"
 # login serializers
 
 class UserLoginSerializer(serializers.ModelSerializer):
