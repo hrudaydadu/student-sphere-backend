@@ -23,6 +23,7 @@ class User(AbstractUser):
     linkdin_profile = models.URLField(blank=True,null=True)
     collage_id = models.CharField(max_length=100,blank=True,null=True)
     Grades = models.CharField(max_length=255,blank=True,null=True)
+    is_verified = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
     objects = CustomUserManager() 
     REQUIRED_FIELDS = []
@@ -34,3 +35,8 @@ class User(AbstractUser):
             'refresh': str(refresh),
             'access': str(refresh.access_token)
         }
+    
+
+class BaseModel(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=True)

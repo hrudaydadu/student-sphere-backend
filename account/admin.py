@@ -22,7 +22,7 @@ class customUserAdmin(UserAdmin):
           'fields': ('email', 'password1', 'password2'),
       }),
   )
-  list_display = ['email', 'name', 'is_staff' ,"phone_no",]
+  list_display = ['email', 'name', 'is_staff' ,"phone_no","is_verified"]
   search_fields = ('email',)
   ordering = ('email', )
 admin.site.register(User, customUserAdmin)

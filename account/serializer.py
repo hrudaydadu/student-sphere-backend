@@ -9,7 +9,7 @@ class UserSerializers(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'name','phone_no','email','password','profile_picture','personal_website','facebook_profile',
-                 'linkdin_profile','collage_id','Grades']
+                 'linkdin_profile','collage_id','Grades',"is_verified"]
         extra_kwargs = {
             'password' :{'write_only':True}  #  to does not return password in api ## postman
         }
@@ -65,6 +65,8 @@ class UserLoginSerializer(serializers.ModelSerializer):
                 detail='Please continue your login using ' + filtered_user_by_email[0].auth_provider)
         if not user:
             raise AuthenticationFailed('Invalid credentials, try again')
+        if not user.is_verified:
+            raise AuthenticationFailed('Email is not verified')
 
         return {
             'email': user.email,
@@ -74,7 +76,13 @@ class UserLoginSerializer(serializers.ModelSerializer):
         return super().validate(attrs)
     
 
+# email verification
+class EmailVerificationSerializer(serializers.ModelSerializer):
+    token = serializers.CharField(max_length=555)
 
+    class Meta:
+        model = User
+        fields = ['token']
 
 
 class PasswordResetSerializer(serializers.Serializer):
