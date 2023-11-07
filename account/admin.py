@@ -11,7 +11,7 @@ class customUserAdmin(UserAdmin):
       (None, {'fields': ('email', 'password', )}),
       (_('Personal info'), {'fields': ('name','profile_picture', 'personal_website','facebook_profile','linkdin_profile',
                                        'collage_id','Grades',)}),
-      (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
+      (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',"is_verified",
                                      'groups', 'user_permissions'),}),
       (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
         (_('user_info'), {'fields': ( 'phone_no',)}),
