@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'rest_framework',# instal  rest_framework
     'tinymce',
     'newandupdate',
+    'groupdiscussion',
+    'django_filters',
     
 ]
 

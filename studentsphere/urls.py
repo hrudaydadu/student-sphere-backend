@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
     path('news/', include('newandupdate.urls')),
+    path('chat/', include('groupdiscussion.urls')),
 ]
