@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist", # add token to blacklist
     'rest_framework',# instal  rest_framework
     'tinymce',
-    'newandupdate',
+    'carrer',
     'groupdiscussion',
     'django_filters',
     

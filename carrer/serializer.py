@@ -2,9 +2,9 @@ from rest_framework.serializers import  ModelSerializer
 from .models import *
 from account.serializer import UserSerializers
 
-class NewsUpdateSerializer(ModelSerializer):
+class CarrerSerializer(ModelSerializer):
     class Meta:
-        model = NewsUpdate
+        model = Carrer
         fields = "__all__"
     def to_representation(self, instance):
         response = super().to_representation(instance)
@@ -12,7 +12,7 @@ class NewsUpdateSerializer(ModelSerializer):
         return response
     
 
-class NewCommentSerialzier(ModelSerializer):
+class CarrerCommentSerialzier(ModelSerializer):
     class Meta:
-        model = NewsComment
+        model = CarrerComment
         fields = "__all__"

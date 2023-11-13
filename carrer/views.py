@@ -1,35 +1,35 @@
 from django.shortcuts import render
-from .models import NewsUpdate,NewsComment
+from .models import *
 from rest_framework.views import APIView
 from django.http.response import Http404
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from .serializer import NewsUpdateSerializer,NewCommentSerialzier
+from .serializer import *
 from rest_framework import status
 # Create your views here.
 
 
-class NewupdateApiview(APIView):
+class CarrerApiview(APIView):
     permission_classes = [IsAuthenticated]
     def get_object(self, pk):
             
         try:
-            return NewsUpdate.objects.get(pk=pk)
-        except NewsUpdate.DoesNotExist:
+            return Carrer.objects.get(pk=pk)
+        except Carrer.DoesNotExist:
             raise Http404
        
     def get(self, request, pk=None, format=None):
         current_user = request.user
         if pk:
             data = self.get_object(pk)
-            serializer = NewsUpdateSerializer(data)
+            serializer = CarrerSerializer(data)
             return Response(serializer.data)
 
         else:
-            data = NewsUpdate.objects.filter(user=current_user)
-            serializer = NewsUpdateSerializer(data, many=True)
+            data = Carrer.objects.filter(user=current_user)
+            serializer = CarrerSerializer(data, many=True)
             if not data.exists():
-                return Response({'detail': 'No NewsUpdate found for the current user'}, status=status.HTTP_404_NOT_FOUND)
+                return Response({'detail': 'No Carrer found for the current user'}, status=status.HTTP_404_NOT_FOUND)
 
             return Response(serializer.data)
         
@@ -37,7 +37,7 @@ class NewupdateApiview(APIView):
             current_user = request.user
             mutable_data = request.data.copy()
             mutable_data['user'] = current_user.id  
-            serializer = NewsUpdateSerializer(data=mutable_data)
+            serializer = CarrerSerializer(data=mutable_data)
             
             serializer.is_valid(raise_exception=True)
             serializer.save()
@@ -54,16 +54,16 @@ class NewupdateApiview(APIView):
 
     def patch(self, request, pk=None, format=None):
                 # Get the todo to update
-            NewsUpdate_to_update = NewsUpdate.objects.get(pk=pk)
+            Carrer_to_update = Carrer.objects.get(pk=pk)
 
-            serializer = NewsUpdateSerializer(instance=NewsUpdate_to_update,data=request.data, partial=True)
+            serializer = CarrerSerializer(instance=Carrer_to_update,data=request.data, partial=True)
 
             serializer.is_valid(raise_exception=True)
             serializer.save()
             response = Response()
 
             response.data = {
-                'message': 'News and Update Updated Successfully',
+                'message': 'Carrer Updated Successfully',
                 'data': serializer.data
             }
 
@@ -71,38 +71,38 @@ class NewupdateApiview(APIView):
     
 
     def delete(self, request, pk, format=None):
-            NewsUpdate_to_delete =  NewsUpdate.objects.get(pk=pk)
+            Carrer_to_delete =  Carrer.objects.get(pk=pk)
 
             # delete the todo
-            NewsUpdate_to_delete.delete()
+            Carrer_to_delete.delete()
 
             return Response({
-                'message': 'NewsUpdate Deleted Successfully'
+                'message': 'Carrer Deleted Successfully'
             })
     
 
 
-class NewsCommentAPIview(APIView):
+class CarrerCommentAPIview(APIView):
     permission_classes = [IsAuthenticated]
     def get_object(self, pk):
             
         try:
-            return NewsComment.objects.get(pk=pk)
-        except NewsComment.DoesNotExist:
+            return CarrerComment.objects.get(pk=pk)
+        except CarrerComment.DoesNotExist:
             raise Http404
        
     def get(self, request, pk=None, format=None):
         current_user = request.user
         if pk:
             data = self.get_object(pk)
-            serializer = NewCommentSerialzier(data)
+            serializer = CarrerCommentSerialzier(data)
             return Response(serializer.data)
 
         else:
-            data = NewsComment.objects.filter(user=current_user)
-            serializer = NewCommentSerialzier(data, many=True)
+            data = CarrerComment.objects.filter(user=current_user)
+            serializer = CarrerCommentSerialzier(data, many=True)
             if not data.exists():
-                return Response({'detail': 'No News comment found for the current user'}, status=status.HTTP_404_NOT_FOUND)
+                return Response({'detail': 'No carrer comment found for the current user'}, status=status.HTTP_404_NOT_FOUND)
 
             return Response(serializer.data)
         
@@ -110,7 +110,7 @@ class NewsCommentAPIview(APIView):
             current_user = request.user
             mutable_data = request.data.copy()
             mutable_data['user'] = current_user.id  
-            serializer = NewCommentSerialzier(data=mutable_data)
+            serializer = CarrerCommentSerialzier(data=mutable_data)
             
             serializer.is_valid(raise_exception=True)
             serializer.save()
