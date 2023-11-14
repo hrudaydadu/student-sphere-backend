@@ -15,6 +15,9 @@ class UserSerializers(serializers.ModelSerializer):
         }
     # convert password to hash key
     def create(self, validated_data):
+        email = validated_data.get('email', None)
+        if email and not email.endswith('@vasal.com'):
+            raise serializers.ValidationError("Invalid email domain")
         password = validated_data.pop('password',None)
         instance = self.Meta.model(**validated_data)
         if password is not None:
@@ -35,6 +38,7 @@ class UserSerializers(serializers.ModelSerializer):
             # If request is not available (for example, in shell), use the default site
             site = get_current_site(None)
             return f"{site.scheme}://{site.domain}{image_path}"
+   
 # login serializers
 
 class UserLoginSerializer(serializers.ModelSerializer):
