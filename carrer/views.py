@@ -26,7 +26,7 @@ class CarrerApiview(APIView):
             return Response(serializer.data)
 
         else:
-            data = Carrer.objects.filter()
+            data = Carrer.objects.all()
             serializer = CarrerSerializer(data, many=True)
             if not data.exists():
                 return Response({'detail': 'No Carrer found for the current user'}, status=status.HTTP_404_NOT_FOUND)
