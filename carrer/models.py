@@ -11,5 +11,5 @@ class Carrer(BaseModel):
 
 class CarrerComment(BaseModel):
     user  = models.ForeignKey(User,on_delete=models.CASCADE)
-    carrers = models.ForeignKey(Carrer,on_delete=models.CASCADE)
+    carrers_id = models.ForeignKey(Carrer,on_delete=models.CASCADE)
     comment = models.CharField(max_length=100)
