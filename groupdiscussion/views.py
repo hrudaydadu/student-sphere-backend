@@ -55,7 +55,7 @@ class HouseApiview(APIView):
             return Response(serializer.data)
 
         else:
-            data = House.objects.filter(user=current_user)
+            data = House.objects.all()
             serializer = HouseSerialzier(data, many=True)
             if not data.exists():
                 return Response({'detail': 'No House found for the current user'}, status=status.HTTP_404_NOT_FOUND)
@@ -109,6 +109,30 @@ class HouseApiview(APIView):
                 'message': 'House Deleted Successfully'
             })
     
+
+
+
+class HouseuserApiview(APIView):
+    permission_classes = [IsAuthenticated]
+    def get_object(self, pk):
+            
+        try:
+            return House.objects.get(pk=pk)
+        except House.DoesNotExist:
+            raise Http404
+       
+    def get(self, request, pk=None, format=None):
+        current_user = request.user
+        if pk:
+            pass
+
+        else:
+            data = House.objects.filter(user=current_user)
+            serializer = HouseSerialzier(data, many=True)
+            if not data.exists():
+                return Response({'detail': 'No House found for the current user'}, status=status.HTTP_404_NOT_FOUND)
+
+            return Response(serializer.data)
 
 
 class HouseCommentAPIview(APIView):
