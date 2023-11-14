@@ -99,11 +99,21 @@ class CarrerCommentAPIview(APIView):
             return Response(serializer.data)
 
         else:
-            data = CarrerComment.objects.filter(user=current_user)
-            serializer = CarrerCommentSerialzier(data, many=True)
-            if not data.exists():
-                return Response({'detail': 'No carrer comment found for the current user'}, status=status.HTTP_404_NOT_FOUND)
+          
+            career_id = request.GET.get('career_id')
 
+          
+            if not career_id:
+                return Response({'detail': 'Career ID is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+           
+            comments = CarrerComment.objects.filter(carrers__id=career_id)
+            
+           
+            if not comments.exists():
+                return Response({'detail': 'No career comments found for the specified career'}, status=status.HTTP_404_NOT_FOUND)
+
+            serializer = CarrerCommentSerialzier(comments, many=True)
             return Response(serializer.data)
         
     def post(self, request, format=None):

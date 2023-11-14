@@ -16,3 +16,7 @@ class CarrerCommentSerialzier(ModelSerializer):
     class Meta:
         model = CarrerComment
         fields = "__all__"
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['user'] = UserSerializers(instance.user).data
+        return response
