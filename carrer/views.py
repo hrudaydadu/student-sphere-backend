@@ -82,6 +82,29 @@ class CarrerApiview(APIView):
     
 
 
+class CarrerUserApiview(APIView):
+    permission_classes = [IsAuthenticated]
+    def get_object(self, pk):
+            
+        try:
+            return Carrer.objects.get(pk=pk)
+        except Carrer.DoesNotExist:
+            raise Http404
+       
+    def get(self, request, pk=None, format=None):
+        current_user = request.user
+        if pk:
+          pass
+
+        else:
+            data = Carrer.objects.filter(user=current_user)
+            serializer = CarrerSerializer(data, many=True)
+            if not data.exists():
+                return Response({'detail': 'No Carrer found for the current user'}, status=status.HTTP_404_NOT_FOUND)
+
+            return Response(serializer.data)
+
+
 class CarrerCommentAPIview(APIView):
     permission_classes = [IsAuthenticated]
     def get_object(self, pk):
