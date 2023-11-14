@@ -130,7 +130,7 @@ class CarrerCommentAPIview(APIView):
                 return Response({'detail': 'Career ID is required'}, status=status.HTTP_400_BAD_REQUEST)
 
            
-            comments = CarrerComment.objects.filter(carrers__id=career_id)
+            comments = CarrerComment.objects.filter(carrers_id__id=career_id)
             
            
             if not comments.exists():
