@@ -18,6 +18,6 @@ class House(BaseModel):
 
 class HouseComment(BaseModel):
     user  = models.ForeignKey(User,on_delete=models.CASCADE)
-    houses = models.ForeignKey(House,on_delete=models.CASCADE)
+    houses_id = models.ForeignKey(House,on_delete=models.CASCADE)
     sheduleDate = models.DateField(null=True)
     comment = models.CharField(max_length=100)

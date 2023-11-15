@@ -55,7 +55,7 @@ class HouseApiview(APIView):
             return Response(serializer.data)
 
         else:
-            data = House.objects.all()
+            data = House.objects.all().order_by('-id')
             serializer = HouseSerialzier(data, many=True)
             if not data.exists():
                 return Response({'detail': 'No House found for the current user'}, status=status.HTTP_404_NOT_FOUND)
@@ -127,7 +127,7 @@ class HouseuserApiview(APIView):
             pass
 
         else:
-            data = House.objects.filter(user=current_user)
+            data = House.objects.filter(user=current_user).order_by('-id')
             serializer = HouseSerialzier(data, many=True)
             if not data.exists():
                 return Response({'detail': 'No House found for the current user'}, status=status.HTTP_404_NOT_FOUND)
@@ -152,11 +152,21 @@ class HouseCommentAPIview(APIView):
             return Response(serializer.data)
 
         else:
-            data = HouseComment.objects.filter(user=current_user)
-            serializer = HouseCommentSerialzier(data, many=True)
-            if not data.exists():
-                return Response({'detail': 'No carrer comment found for the current user'}, status=status.HTTP_404_NOT_FOUND)
+              
+            houses_id = request.GET.get('houses_id')
 
+          
+            if not houses_id:
+                return Response({'detail': 'Houses ID is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+           
+            comments = HouseComment.objects.filter(houses_id__id=houses_id).order_by('-id')
+            
+           
+            if not comments.exists():
+                return Response({'detail': 'No Houses comments found for the specified House'}, status=status.HTTP_404_NOT_FOUND)
+
+            serializer = HouseCommentSerialzier(comments, many=True)
             return Response(serializer.data)
         
     def post(self, request, format=None):

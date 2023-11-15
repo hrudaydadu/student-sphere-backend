@@ -92,7 +92,7 @@ WSGI_APPLICATION = 'studentsphere.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-DATABASE_URL = 'postgres://mrprskdneargsm:8c1d0acc009f69a77556b46682eb58d88dd06f77a006ddcd1595929e885d2765@ec2-52-205-171-232.compute-1.amazonaws.com:5432/ddtq5l04pblt4o'
+DATABASE_URL = 'postgres://wpspvjllgiwmiu:1b56a5ea0585acd663df6682d5b0ba74e018854ae6869ff3f55c719e5f16b962@ec2-44-207-60-135.compute-1.amazonaws.com:5432/d1hj6o39ctljo5'
 db_config = dj_database_url.config(default=DATABASE_URL, conn_max_age=600)
 
 DATABASES = {

@@ -26,7 +26,7 @@ class CarrerApiview(APIView):
             return Response(serializer.data)
 
         else:
-            data = Carrer.objects.all()
+            data = Carrer.objects.all().order_by('-id')
             serializer = CarrerSerializer(data, many=True)
             if not data.exists():
                 return Response({'detail': 'No Carrer found for the current user'}, status=status.HTTP_404_NOT_FOUND)
@@ -97,7 +97,7 @@ class CarrerUserApiview(APIView):
           pass
 
         else:
-            data = Carrer.objects.filter(user=current_user)
+            data = Carrer.objects.filter(user=current_user).order_by('-id')
             serializer = CarrerSerializer(data, many=True)
             if not data.exists():
                 return Response({'detail': 'No Carrer found for the current user'}, status=status.HTTP_404_NOT_FOUND)
@@ -130,7 +130,7 @@ class CarrerCommentAPIview(APIView):
                 return Response({'detail': 'Career ID is required'}, status=status.HTTP_400_BAD_REQUEST)
 
            
-            comments = CarrerComment.objects.filter(carrers_id__id=career_id)
+            comments = CarrerComment.objects.filter(carrers_id__id=career_id).order_by('-id')
             
            
             if not comments.exists():
