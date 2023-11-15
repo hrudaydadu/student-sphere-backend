@@ -27,17 +27,17 @@ class UserSerializers(serializers.ModelSerializer):
         instance.save()
         return instance
     
-    def imagePlanImage(self, obj):
-        return self.build_absolute_image_url(obj.profile_picture)
+    # def imagePlanImage(self, obj):
+    #     return self.build_absolute_image_url(obj.profile_picture)
     
-    def build_absolute_image_url(self, image_path):
-        request = self.context.get('request')
-        if request is not None:
-            return request.build_absolute_uri(image_path)
-        else:
-            # If request is not available (for example, in shell), use the default site
-            site = get_current_site(None)
-            return f"{site.scheme}://{site.domain}{image_path}"
+    # def build_absolute_image_url(self, image_path):
+    #     request = self.context.get('request')
+    #     if request is not None:
+    #         return request.build_absolute_uri(image_path)
+    #     else:
+    #         # If request is not available (for example, in shell), use the default site
+    #         site = get_current_site(None)
+    #         return f"{site.scheme}://{site.domain}{image_path}"
    
 # login serializers
 
