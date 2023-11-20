@@ -70,8 +70,8 @@ class UserLoginSerializer(serializers.ModelSerializer):
                 detail='Please continue your login using ' + filtered_user_by_email[0].auth_provider)
         if not user:
             raise AuthenticationFailed('Invalid credentials, try again')
-        if not user.is_verified:
-            raise AuthenticationFailed('Email is not verified')
+        # if not user.is_verified:
+        #     raise AuthenticationFailed('Email is not verified')
 
         return {
             'email': user.email,
