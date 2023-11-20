@@ -16,7 +16,8 @@ class UserSerializers(serializers.ModelSerializer):
     # convert password to hash key
     def create(self, validated_data):
         email = validated_data.get('email', None)
-        if email and not email.endswith('@vassar.edu','@marist.edu','@suny.edu','@dutchess.edu'):
+        valid_domains = ('@vassar.edu', '@marist.edu', '@suny.edu', '@dutchess.edu')
+        if email and not email.endswith(valid_domains):
             raise serializers.ValidationError("Invalid email domain")
         password = validated_data.pop('password',None)
         instance = self.Meta.model(**validated_data)
