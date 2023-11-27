@@ -89,5 +89,19 @@ class update_profile(RetrieveUpdateAPIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 
+class PasswordResetAPIView(generics.GenericAPIView):
+    serializer_class = PasswordResetSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        form = PasswordResetForm(serializer.validated_data)
+        if form.is_valid():
+            form.save(request=request)
+            return Response({'detail': 'Password reset email has been sent.'}, status=status.HTTP_200_OK)
+        else:
+            return Response({'detail': 'Failed to send password reset email.'}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
