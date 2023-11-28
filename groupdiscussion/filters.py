@@ -5,7 +5,7 @@ class SearchCollageFilters(django_filters.FilterSet):
    class Meta:
         model = SearchCollage
         fields = {
-            'name': ['icontains'],
+            'name': ['exact'],
             
         }
 
