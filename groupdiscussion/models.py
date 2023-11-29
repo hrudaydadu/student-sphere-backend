@@ -19,7 +19,7 @@ class House(BaseModel):
     maximum_occupancy = models.IntegerField(null=True,blank=True)
     special_notes = models.CharField(max_length=100,blank=True)
     available_date = models.DateField(null=True,blank=True)
-    contact_name = models.BigIntegerField(null=True)
+    contact_name = models.CharField(max_length=100,blank=True, null=True)
     whatsApp_number = models.BigIntegerField(null=True)
     email = models.EmailField(blank=True)
     Description = HTMLField(blank=True,null=True)
